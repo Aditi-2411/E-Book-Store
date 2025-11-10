@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://thumbs.dreamstime.com/b/old-book-flying-letters-magic-light-background-bookshelf-library-ancient-books-as-symbol-knowledge-history-218640948.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            backdrop-filter: brightness(0.5);
+            color: white;
+        }
+        .container {
+            background-color: rgba(238, 53, 53, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        p {
+            font-size: 18px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #FFD700;
+            border: none;
+            color: black;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Your Order!</h1>
+        <p>Your tracking ID is:</p>
+        <p id="trackingId" style="font-weight: bold;"></p>
+        <div class="button-container">
+            <button onclick="navigateTo('library.html')">Go to Library</button>
+            
+        </div>
+    </div>
+
+    <script>
+        function generateTrackingId() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let trackingId = '';
+            for (let i = 0; i < 10; i++) {
+                trackingId += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return trackingId;
+        }
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        document.getElementById('trackingId').textContent = generateTrackingId();
+    </script>
+</body>
+</html>

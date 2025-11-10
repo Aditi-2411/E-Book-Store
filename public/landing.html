@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up & Sign In</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body class="landing-page">
+    <div class="container landing-container">
+        <!-- Stylish Text -->
+        <div class="stylish-text">
+            <div>Read More And Make</div>
+            <div>Success The Result</div>
+            <div>Of Perfection.</div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Sign Up Form -->
+            <form id="sign-up-form" action="javascript:void(0)">
+                <h2>Sign Up</h2>
+                <input type="text" class="box" id="signup-username" name="username" placeholder="Username" required>
+                <input type="email" class="box" id="signup-email" name="email" placeholder="Email" required>
+                <input type="password" class="box" id="signup-password" name="password" placeholder="Password" required>
+                <input type="submit" value="Sign Up">
+                
+                <!-- Sign In Option Below in Small Text -->
+                <div class="small-text">
+                    Already have an account? <a href="javascript:void(0)" onclick="showSignIn()">Sign In</a>
+                </div>
+            </form>
+
+            <!-- Sign In Form (Initially Hidden) -->
+            <form id="sign-in-form" class="form-hidden" action="javascript:void(0)">
+                <h2>Sign In</h2>
+                <input type="text" class="box" id="signin-username" name="username" placeholder="Username" required>
+                <input type="password" class="box" id="signin-password" name="password" placeholder="Password" required>
+                <input type="submit" value="Sign In">
+                
+                <!-- Sign Up Option Below in Small Text -->
+                <div class="small-text">
+                    Don’t have an account? <a href="javascript:void(0)" onclick="showSignUp()">Sign Up</a>
+                </div>
+            </form>
+
+            <!-- New "Tick Mark" and "Go to Store" Button (Initially Hidden) -->
+            <div id="success-check" class="form-hidden">
+                <div class="success-tick">✓</div>
+                <div class="success-message">Sign Up/Sign In Successful!</div>
+                <a href="library.html" class="button">Go to Store</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the Sign Up form and hide the Sign In form
+        function showSignUp() {
+            document.getElementById('sign-up-form').style.display = 'block';
+            document.getElementById('sign-in-form').style.display = 'none';
+            document.getElementById('success-check').style.display = 'none'; // Hide the Go to Store button
+        }
+
+        // Function to show the Sign In form and hide the Sign Up form
+        function showSignIn() {
+            document.getElementById('sign-up-form').style.display = 'none';
+            document.getElementById('sign-in-form').style.display = 'block';
+            document.getElementById('success-check').style.display = 'none'; // Hide the Go to Store button
+        }
+
+        // Function to show the "Go to Store" button after successful Sign Up or Sign In
+        function showGoToStoreButton() {
+            document.getElementById('sign-up-form').style.display = 'none';
+            document.getElementById('sign-in-form').style.display = 'none';
+            document.getElementById('success-check').style.display = 'block'; // Show the success tick and Go to Store button
+        }
+
+        // AJAX Function for Sign Up
+        document.getElementById('sign-up-form').onsubmit = function() {
+            var username = document.getElementById('signup-username').value;
+            var email = document.getElementById('signup-email').value;
+            var password = document.getElementById('signup-password').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/sign_up", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    showGoToStoreButton(); // Show success message and "Go to Store" button
+                }
+            };
+
+            xhr.send(JSON.stringify({
+                "username": username,
+                "email": email,
+                "password": password
+            }));
+        };
+
+        // AJAX Function for Sign In
+        document.getElementById('sign-in-form').onsubmit = function() {
+            var username = document.getElementById('signin-username').value;
+            var password = document.getElementById('signin-password').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/sign_in", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    showGoToStoreButton(); // Show success message and "Go to Store" button
+                }
+            };
+
+            xhr.send(JSON.stringify({
+                "username": username,
+                "password": password
+            }));
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Wishlist Page Styles */
+        .wishlist-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .wishlist-item img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .wishlist-details {
+            flex-grow: 1;
+        }
+
+        .wishlist-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .wishlist-price {
+            margin-top: 5px;
+        }
+
+        .remove-btn {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wishlist-container">
+        <h1>Your Wishlist</h1>
+        <div id="wishlist-items">
+            <!-- Wishlist items will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to load and manage the wishlist
+
+        // Function to render the wishlist items
+        function loadWishlist() {
+            const wishlistContainer = document.getElementById('wishlist-items');
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            // Clear the container before rendering
+            wishlistContainer.innerHTML = '';
+
+            if (wishlist.length === 0) {
+                wishlistContainer.innerHTML = '<p>Your wishlist is empty.</p>';
+                return;
+            }
+
+            wishlist.forEach((book, index) => {
+                // Create wishlist item element
+                const wishlistItem = document.createElement('div');
+                wishlistItem.className = 'wishlist-item';
+                wishlistItem.innerHTML = `
+                    <img src="${book.imgSrc}" alt="Book Image" />
+                    <div class="wishlist-details">
+                        <div class="wishlist-title">${book.title}</div>
+                        <div class="wishlist-price">${book.price}</div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromWishlist(${index})">Remove</button>
+                `;
+
+                // Append the item to the container
+                wishlistContainer.appendChild(wishlistItem);
+            });
+        }
+
+        // Function to remove an item from the wishlist
+        function removeFromWishlist(index) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            wishlist.splice(index, 1); // Remove the item at the given index
+
+            // Update the wishlist in localStorage
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+            // Reload the wishlist display
+            loadWishlist();
+        }
+
+        // Load the wishlist when the page loads
+        document.addEventListener('DOMContentLoaded', loadWishlist);
+    </script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Books</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            
+        }
+
+        .library-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .library-heading {
+            font-size: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            padding: 10px;
+            background-color: navy;
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .library-heading .star {
+            color: #ffcc00;
+            margin-right: 10px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .sidebar-item svg {
+            margin-right: 10px;
+        }
+
+        .sidebar-item:hover {
+            background-color: #ddd;
+        }
+
+        /* Category Options */
+        #category-options {
+            display: none;
+        }
+
+        .category-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 8px;
+            margin-left: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .category-box:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .book-box {
+            position: relative; /* Added for positioning the heart icon */
+    width: 22%; /* Adjust to fit 4 boxes per row */
+            width: 22%; /* Adjust to fit 4 boxes per row */
+            height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-box img {
+    width: 100%;
+    height: 70%;
+    object-fit: contain;
+    border-bottom: 1px solid #ddd;
+}
+
+
+        .book-box .price {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .book-box .buttons {
+            margin: 10px 0;
+        }
+
+        .book-box .buttons button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .book-box .buttons .buy-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .book-box .buttons .read-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .book-box .buttons .download-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Search bar */
+        .search-container {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .search-input {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: rgb(92, 88, 88);
+    z-index: 1;
+}
+    </style>
+</head>
+<body>
+    <div class="library-container">
+         <!-- Sidebar -->
+         <div class="sidebar">
+            <div class="library-heading">
+                <span class="star"></span> 
+                <span><u>E-Book Lib-Store</u></span>
+            </div>
+
+            <div class="sidebar-item" id="home" onclick="navigateTo('library.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg> Home
+            </div>
+
+            <div class="sidebar-item" id="category" onclick="toggleCategories()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 960 960" width="24px" fill="#000000"><path d="M80 640V320h320v320H80Zm80-80h160V400H160v160Zm160-400 220-360 220 360H220Zm142-80h156l-78-126-78 126ZM863 858 757 742q-21 14-45.5 21t-51.5 7q-75 0-127.5-52.5T480 660q0-75 52.5-127.5T660 480q75 0 127.5 52.5T840 660q0 26-7 50.5T813 756L919 862l-56 56ZM660 760q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320 380Zm120-260Z"/></svg> Category
+            </div>
+
+            <div class="category-options" id="category-options">
+                <div class="category-box" onclick="navigateTo('category_engineering.html')"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="M42-120v-112q0-33 17-62t47-44q51-26 115-44t141-18q77 0 141 18t115 44q30 15 47 44t17 62v112H42Zm80-80h480v-32q0-11-5.5-20T582-266q-36-18-92.5-36T362-320q-71 0-127.5 18T142-266q-9 5-14.5 14t-5.5 20v32Zm240-240q-66 0-113-47t-47-113h-10q-9 0-14.5-5.5T172-620q0-9 5.5-14.5T192-640h10q0-45 22-81t58-57v38q0 9 5.5 14.5T302-720q9 0 14.5-5.5T322-740v-54q9-3 19-4.5t21-1.5q11 0 21 1.5t19 4.5v54q0 9 5.5 14.5T422-720q9 0 14.5-5.5T442-740v-38q36 21 58 57t22 81h10q9 0 14.5 5.5T552-620q0 9-5.5 14.5T532-600h-10q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T442-600H282q0 33 23.5 56.5T362-520Zm300 160-6-30q-6-2-11.5-4.5T634-402l-28 10-20-36 22-20v-24l-22-20 20-36 28 10q4-4 10-7t12-5l6-30h40l6 30q6 2 12 5t10 7l28-10 20 36-22 20v24l22 20-20 36-28-10q-5 5-10.5 7.5T708-390l-6 30h-40Zm20-70q12 0 21-9t9-21q0-12-9-21t-21-9q-12 0-21 9t-9 21q0 12 9 21t21 9Zm72-130-8-42q-9-3-16.5-7.5T716-620l-42 14-28-48 34-30q-2-5-2-8v-16q0-3 2-8l-34-30 28-48 42 14q6-6 13.5-10.5T746-798l8-42h56l8 42q9 3 16.5 7.5T848-780l42-14 28 48-34 30q2 5 2 8v16q0 3-2 8l34 30-28 48-42-14q-6 6-13.5 10.5T818-602l-8 42h-56Zm28-90q21 0 35.5-14.5T832-700q0-21-14.5-35.5T782-750q-21 0-35.5 14.5T732-700q0 21 14.5 35.5T782-650ZM362-200Z"/></svg>Engineering</div>
+                
+                    <div class="category-box" onclick="navigateTo('category_novels.html')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"/></svg>Novels</div>
+                
+                    <div class="category-box" onclick="navigateTo('category_horror.html')"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="M240-80v-170q-39-17-68.5-45.5t-50-64.5q-20.5-36-31-77T80-520q0-158 112-259t288-101q176 0 288 101t112 259q0 42-10.5 83t-31 77q-20.5 36-50 64.5T720-250v170H240Zm80-80h40v-80h80v80h80v-80h80v80h40v-142q38-9 67.5-30t50-50q20.5-29 31.5-64t11-74q0-125-88.5-202.5T480-800q-143 0-231.5 77.5T160-520q0 39 11 74t31.5 64q20.5 29 50.5 50t67 30v142Zm100-200h120l-60-120-60 120Zm-80-80q33 0 56.5-23.5T420-520q0-33-23.5-56.5T340-600q-33 0-56.5 23.5T260-520q0 33 23.5 56.5T340-440Zm280 0q33 0 56.5-23.5T700-520q0-33-23.5-56.5T620-600q-33 0-56.5 23.5T540-520q0 33 23.5 56.5T620-440ZM480-160Z"/></svg>Horror</div>
+                
+                    <div class="category-box" onclick="navigateTo('category_fiction.html')"> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="M320-160q-33 0-56.5-23.5T240-240v-120h120v-90q-35-2-66.5-15.5T236-506v-44h-46L60-680q36-46 89-65t107-19q27 0 52.5 4t51.5 15v-55h480v520q0 50-35 85t-85 35H320Zm120-200h240v80q0 17 11.5 28.5T720-240q17 0 28.5-11.5T760-280v-440H440v24l240 240v56h-56L510-514l-8 8q-14 14-29.5 25T440-464v104ZM224-630h92v86q12 8 25 11t27 3q23 0 41.5-7t36.5-25l8-8-56-56q-29-29-65-43.5T256-684q-20 0-38 3t-36 9l42 42Zm376 350H320v40h286q-3-9-4.5-19t-1.5-21Zm-280 40v-40 40Z"/></svg>Fiction</div>
+                
+                    <div class="category-box" onclick="navigateTo('category_science.html')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="m480-281 59-59h81v-81l59-59-59-59v-81h-81l-59-59-59 59h-81v81l-59 59 59 59v81h81l59 59Zm0 253L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Zm0-112 100-100h140v-140l100-100-100-100v-140H580L480-820 380-720H240v140L140-480l100 100v140h140l100 100Zm0-340Z"/></svg>Science</div>
+            </div>
+            
+            
+            <div class="sidebar-item" onclick="navigateTo('cart.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 960 960" width="24px" fill="#000000"><path d="M280 880q-33 0-56.5-23.5T200 800q0-33 23.5-56.5T280 720q33 0 56.5 23.5T360 800q0 33-23.5 56.5T280 880Zm400 0q-33 0-56.5-23.5T600 800q0-33 23.5-56.5T680 720q33 0 56.5 23.5T760 800q0 33-23.5 56.5T680 880ZM246 240l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692 478q-11 20-29.5 31T622 520H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Z"/></svg> Cart
+            </div>
+            <div class="sidebar-item" onclick="navigateTo('about.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 960 960" width="24px" fill="#000000"><path d="M440 680h80V440h-80v240Zm40-320q17 0 28.5-11.5T520 320q0-17-11.5-28.5T480 280q-17 0-28.5 11.5T440 320q0 17 11.5 28.5T480 360Zm0 520q-83 0-156-31.5T197 757q-54-54-85.5-127T80 480q0-83 31.5-156T197 237q54-54 127-85.5T480 120q83 0 156 31.5T763 237q54 54 85.5 127T880 480q0 83-31.5 156T763 757q-54 54-127 85.5T480 880Zm0-400Zm0 320q125 0 212.5-87.5T780 480q0-125-87.5-212.5T480 180q-125 0-212.5 87.5T180 480q0 125 87.5 212.5T480 800Z"/></svg> About
+            </div>
+            
+            <div class="sidebar-item" onclick="navigateTo('wishlist.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="M200-313q10-3 19.5-5t20.5-2h40v-480h-40q-17 0-28.5 11.5T200-760v447Zm40 233q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h280v80H360v480h240v-120h80v200H240q-17 0-28.5 11.5T200-200q0 17 11.5 28.5T240-160h520v-320h80v400H240Zm-40-233v-487 487Zm500-167q0-92 64-156t156-64q-92 0-156-64t-64-156q0 92-64 156t-156 64q92 0 156 64t64 156Z"/></svg>Wishlist</div>
+            <div class="sidebar-item" onclick="navigateTo('quote.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="ffffff"><path d="M440-760v-160h80v160h-80Zm266 110-56-56 113-114 56 57-113 113Zm54 210v-80h160v80H760Zm3 299L650-254l56-56 114 112-57 57ZM254-650 141-763l57-57 112 114-56 56Zm-14 450h180q25 0 42.5-17.5T480-260q0-25-17-42.5T421-320h-51l-20-48q-14-33-44-52.5T240-440q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T40-320q0-83 58.5-141.5T240-520q60 0 109.5 32.5T423-400q58 0 97.5 43T560-254q-2 57-42.5 95.5T420-120H240Zm320-134q-5-20-10-39t-10-39q45-19 72.5-59t27.5-89q0-66-47-113t-113-47q-60 0-105 39t-53 99q-20-5-41-9t-41-9q14-88 82.5-144T480-720q100 0 170 70t70 170q0 77-44 138.5T560-254Zm-79-226Z"/></svg> Quote of the Day</div>
+            
+            <div class="sidebar-item" onclick="signOut()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg> Sign Out
+            </div>
+        </div>
+        
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for a book..." onkeyup="searchBooks()">
+            </div>
+            <!-- Example Book Boxes -->
+           
+            <div class="book-box">
+                <img src="https://cdn.kobo.com/book-images/7f7cb400-e00d-4608-9fd8-e8c672820781/1200/1200/False/the-origin-of-species-44.jpg" alt="Book Image">
+                <div class="book-title">Origin of Species</div>
+                <div class="price">Rs100.00</div>
+                <div class="buttons">
+                    <button class="buy-btn" onclick="navigateTo('cart.html?book=Origin%20of%20Species&price=100.00')">Buy</button>
+                    <button class="read-btn" onclick="openPDF('https://www.vliz.be/docs/Zeecijfers/Origin_of_Species.pdf')">Read</button>
+                    
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+            
+            
+            <div class="book-box">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhG59iVZwkake_FIa3Of8ptZ3T_ELWCg2OMDiPxEVmkVuwmrowYS5SsarUcbnjncat-FWdytKghyphenhyphenqcOqZl_aXn4X-HLBdSlyI7hHLkHmG1xg1uFZ22iUfdeBCh1fVc7efeRh8K34Y7yWL-B/s1600/Graphic0.jpg" alt="Book Image">
+                <div class="book-title">Everyday Science</div>
+                <div class="price">Rs250.00</div>
+                <div class="buttons">
+                    <!-- Navigate to cart.html with book details -->
+                    <button class="buy-btn" onclick="navigateTo('cart.html?book=Everyday%20Science&price=250.00')">Buy</button>
+                    <!-- Open the PDF in a new tab -->
+                    <button class="read-btn" onclick="openPDF('https://hostnezt.com/cssfiles/gsa/Everyday%20Science%20By%20Parsons%20LM.pdf')">Read</button>
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+            
+            <div class="book-box">
+                <img src="https://cdn.kobo.com/book-images/299268a4-e02b-4a4b-a7e6-9b06159e1ce2/1200/1200/False/relativity-the-special-and-the-general-theory-1.jpg" alt="Book Image">
+                <div class="book-title">Relativity</div>
+                <div class="price">Rs190.00</div>
+                <div class="buttons">
+                     <!-- Navigate to cart.html with book details -->
+                <button class="buy-btn" onclick="navigateTo('cart.html?book=Relativity&price=190.00')">Buy</button>
+                        <!-- Open the PDF in a new tab -->
+                <button class="read-btn" onclick="openPDF('https://www.marxists.org/reference/archive/einstein/works/1910s/relative/relativity.pdf')">Read</button>
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+
+            <div class="book-box">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHVMNUJQULPN_iiQlZ0W7cArfYr4TJv5VudA&s" alt="Book Image">
+                <div class="book-title">Anecdotes of Inventions</div>
+                <div class="price">Rs220.00</div>
+                <div class="buttons">
+                <!-- Navigate to cart.html with correct book details -->
+                <button class="buy-btn" onclick="navigateTo('cart.html?book=Anecdotes%20of%20Inventions&price=220.00')">Buy</button>
+                <!-- Open the PDF in a new tab -->
+            <button class="read-btn" onclick="openPDF('https://upload.wikimedia.org/wikipedia/commons/0/0e/A_history_of_inventions_and_discoveries_%28IA_gri_33125008510915%29.pdf')">Read</button>
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+            <div class="book-box">
+                <img src="data:image/jpeg;base64,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" alt="Book Image">
+                <div class="book-title">Microbiology</div>
+                <div class="price">Rs350.00</div>
+                <div class="buttons">
+                    <button class="buy-btn" onclick="navigateTo('cart.html?book=Microbiology&price=350.00')">Buy</button>
+                    <button class="read-btn" onclick="openPDF('https://rlmc.edu.pk/themes/images/gallery/library/books/Microbiology/Text_Book_of_Microbiology.pdf')">Read</button>
+                    
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+            
+            <div class="book-box">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ79EF2f7U9tkiNjBWoaK0gAUJlvXSm8oyfBg&s" alt="Book Image">
+                <div class="book-title">Atoms In Agriculture</div>
+                <div class="price">Rs200.00</div>
+                <div class="buttons">
+                    <button class="buy-btn" onclick="navigateTo('cart.html?book=Atoms%20In%20Agriculture&price=200.00')">Buy</button>
+                    <button class="read-btn" onclick="openPDF('https://agrarianstudies.macmillan.yale.edu/sites/default/files/files/colloqpapers/08curry.pdf')">Read</button>
+                    
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+            <div class="book-box">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyX64bwZ_ROHMRrGOn13AqLzDzlHnlFhrRrw&s" alt="Book Image">
+                <div class="book-title">Theory of Stellar Structure</div>
+                <div class="price">Rs500.00</div>
+                <div class="buttons">
+                    <button class="buy-btn" onclick="navigateTo('cart.html?book=Theory%20of%20Stellar%20Structure&price=500.00')">Buy</button>
+                    <button class="read-btn" onclick="openPDF('https://icourse.club/uploads/files/fa6ee05bde8e18abf27d7e7e444eb7a5e5c47bc7.pdf')">Read</button>
+                    
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+            <div class="book-box">
+                <img src="https://manybooks.net/sites/default/files/styles/220x330sc/public/old-covers/cover-auto-21463.jpg?itok=tnaViOVi" alt="Book Image">
+                <div class="book-title">The Martyrs of Science</div>
+                <div class="price">Rs250.00</div>
+                <div class="buttons">
+                    <!-- Navigation to the cart page with the correct book name and price -->
+                    <button class="buy-btn" onclick="navigateTo('cart.html?book=The%20Martyrs%20of%20Science&price=250.00')">Buy</button>
+                    
+                    <!-- Opens the specified PDF document in a new tab when clicked -->
+                    <button class="read-btn" onclick="openPDF('https://dbooks.bodleian.ox.ac.uk/books/PDFs/600053538.pdf')">Read</button>
+                </div>
+                <span class="heart-icon" onclick="addToWishlist(this)">❤️</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addToWishlist(element) {
+            const bookBox = element.closest('.book-box');
+            const title = bookBox.querySelector('.book-title').textContent;
+            const price = bookBox.querySelector('.price').textContent;
+            const imgSrc = bookBox.querySelector('img').src;
+
+            // Toggle heart icon color
+            element.classList.toggle('liked');
+
+            // Retrieve wishlist from localStorage
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            if (element.classList.contains('liked')) {
+                // Add book to wishlist if not already present
+                const book = { title, price, imgSrc };
+                wishlist.push(book);
+                alert(`${title} added to wishlist!`);
+            } else {
+                // Remove book from wishlist
+                wishlist = wishlist.filter((item) => item.title !== title);
+                alert(`${title} removed from wishlist!`);
+            }
+
+            // Update localStorage
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function toggleCategories() {
+            const options = document.getElementById('category-options');
+            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function openPDF(pdfUrl) {
+            window.open(pdfUrl, '_blank');
+        }
+
+        function searchBooks() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const bookBoxes = document.querySelectorAll('.book-box');
+
+            bookBoxes.forEach(bookBox => {
+                const title = bookBox.querySelector('.book-title').textContent.toLowerCase();
+                bookBox.style.display = title.includes(input) ? '' : 'none';
+            });
+        }
+
+        function signOut() {
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>
+

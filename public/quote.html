@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quote of the Day</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Quote Page Styles */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            background-image: url('https://i.pinimg.com/736x/68/2f/0f/682f0f2e967e2934017934a699f38866.jpg');
+            background-size: cover; /* Cover the whole page */
+            background-position: center; /* Center the image */
+            font-family: Arial, sans-serif;
+        }
+
+        .quote-container {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-text {
+            font-size: 24px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .quote-author {
+            font-size: 20px;
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="quote-container">
+        <div class="quote-text" id="quote-text"></div>
+        <div class="quote-author" id="quote-author"></div>
+    </div>
+
+    <script>
+        const quotes = [
+            {
+                text: "Engineers like to solve problems. If there are no problems handily available, they will create their own problems.",
+                author: "Scott Adams",
+                category: "Engineering"
+            },
+            {
+                text: "It is our choices, Harry, that show what we truly are, far more than our abilities.",
+                author: "J.K. Rowling",
+                category: "Fiction"
+            },
+            {
+                text: "The best way to predict the future is to invent it.",
+                author: "Alan Kay",
+                category: "Science"
+            },
+            {
+                text: "We make up horrors to help us cope with the real ones.",
+                author: "Stephen King",
+                category: "Horror"
+            },
+            {
+                text: "Books are a uniquely portable magic.",
+                author: "Stephen King",
+                category: "Novel"
+            },
+            {
+                text: "The road to success is dotted with many tempting parking spaces.",
+                author: "Will Rogers",
+                category: "Engineering"
+            },
+            {
+                text: "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
+                author: "George R.R. Martin",
+                category: "Novel"
+            },
+            {
+                text: "Science knows no country, because knowledge belongs to humanity, and is the torch which illuminates the world.",
+                author: "Louis Pasteur",
+                category: "Science"
+            },
+            {
+                text: "In the end, we will remember not the words of our enemies, but the silence of our friends.",
+                author: "Martin Luther King Jr.",
+                category: "Fiction"
+            },
+            {
+                text: "There is no greater agony than bearing an untold story inside you.",
+                author: "Maya Angelou",
+                category: "Novel"
+            },
+            {
+                text: "Horror is the removing of the masks that we wear every day.",
+                author: "Robert R. McCammon",
+                category: "Horror"
+            },
+            {
+                text: "The science of today is the technology of tomorrow.",
+                author: "Edward Teller",
+                category: "Science"
+            },
+            {
+                text: "We cannot solve our problems with the same thinking we used when we created them.",
+                author: "Albert Einstein",
+                category: "Engineering"
+            },
+            {
+                text: "Fiction is the lie through which we tell the truth.",
+                author: "Albert Camus",
+                category: "Fiction"
+            },
+            {
+                text: "The most beautiful thing we can experience is the mysterious.",
+                author: "Albert Einstein",
+                category: "Science"
+            },
+            {
+                text: "Dream big and dare to fail.",
+                author: "Norman Vaughan",
+                category: "Engineering"
+            },
+            {
+                text: "The only limit to our realization of tomorrow will be our doubts of today.",
+                author: "Franklin D. Roosevelt",
+                category: "Fiction"
+            },
+            {
+                text: "Success is not the key to happiness. Happiness is the key to success.",
+                author: "Albert Schweitzer",
+                category: "Science"
+            },
+            {
+                text: "The only thing we have to fear is fear itself.",
+                author: "Franklin D. Roosevelt",
+                category: "Horror"
+            },
+            {
+                text: "Books are the mirrors of the soul.",
+                author: "Virginia Woolf",
+                category: "Novel"
+            },
+            {
+                text: "To invent, you need a good imagination and a pile of junk.",
+                author: "Thomas Edison",
+                category: "Engineering"
+            },
+            {
+                text: "Reality is merely an illusion, albeit a very persistent one.",
+                author: "Albert Einstein",
+                category: "Science"
+            }
+        ];
+
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const selectedQuote = quotes[randomIndex];
+
+            document.getElementById('quote-text').innerText = `"${selectedQuote.text}"`;
+            document.getElementById('quote-author').innerText = `— ${selectedQuote.author}`;
+        }
+
+        // Call the function to display a random quote when the page loads
+        displayRandomQuote();
+    </script>
+</body>
+</html>
